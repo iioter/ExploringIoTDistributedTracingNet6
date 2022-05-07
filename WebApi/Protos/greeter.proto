@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option csharp_namespace = "IoTGatewayService";
+
+package greet;
+
+// The greeting service definition.
+service Greeter {
+	// Sends a greeting
+	rpc GatewaySetValue (SetRequest) returns (SetReply);
+}
+
+message SetRequest {
+	uint32 value =1;
+}
+
+// The response message containing the greetings.
+message SetReply {
+	bool success=1;
+	string message = 2;
+}

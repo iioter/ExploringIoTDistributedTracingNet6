@@ -1,0 +1,13 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Input.SetValue"></label>
+        <input asp-for="Input.SetValue" value="26" class="form-control" />
+        <span asp-validation-for="Input.SetValue" class="text-danger"></span>
+    </div>
+</form>
