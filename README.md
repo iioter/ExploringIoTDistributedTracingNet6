@@ -1,39 +1,47 @@
 # ExploringIoTDistributedTracingNet6
 > 探索链路追踪在.NET6工业物联网项目的应用
 > 
-> 如果觉得有用，请留言**学到了**
+> 如果觉得有用，请留言**学到了.**
 > 
-> 已经知道的老哥，请留言**就这？**
+> 已经会了的老哥，请留言**就这?**
+> 
 ![Jaeger](./images/jaeger.png)
 ## 可能遇到的问题
-> 工业物联网项目自下而上一般分为设备、数采网关、SCADA系统、Mes系统、ERP系统等
+> 工业物联网项目自上而下一般分为ERP、Mes、SCADA、WCS、边缘网关、设备等
 
-> 一个订单从SAP发送到设备要经过上述多个系统，当某个环节出现问题，需要各个团队共同查找问题，最传统的做法是翻阅各个系统的日志文件，这无疑是非常糟糕的体验。
+> 一个生产订单从SAP发送到设备要经过上述多个系统，当某个环节出现问题，可能需要各个团队共同查找问题，最传统的做法是翻阅各个系统的日志文件，这无疑是非常糟糕和低效的。
 >
-> **APM系统**既可以帮你查找问题，也可以容易的找出整个系统的瓶颈。
+> **APM系统**既可以帮你查找问题，又可以定位整个系统的瓶颈。
 
 ## 应用性能监控
 > APM(Application Performance Monitor)，用来监控你的软件性能及行为。通常包括：
-### Metrics 指标 
-> 如CPU、内存、磁盘I/O、网络I/O等
-### Logs 日志 
-> 通常程序输出的不同等级日志Debug、Info、Error等
-### Traces 分布式追踪
-> 包含请求中每个子操作的调用链路、开始和结束时间、传递的参数、对数据库的操作等
+- ### Metrics 指标 
+  > 如CPU、内存、磁盘I/O、网络I/O等
+- ### Logs 日志 
+  > 通常程序输出的不同等级日志Debug、Info、Error等
+- ### Traces 分布式追踪
+  > 包含请求中每个子操作的调用链路、开始和结束时间、传递的参数、对数据库的操作等
 
 # OpenTelemetry
-![OpenTelemetry](./images/Reference_Architecture.svg)
-OpenTelemetry是谷歌和微软推出的一个规范。我们可以使用它的数据收集中间件
+![OpenTelemetry](./images/opentelemetry-logo.png)
+
+OpenTelemetry是谷歌和微软推出的一套平台无关、厂商无关的协议标准，是OpenTracing和OpenCensus的大统一，使得开发人员能够方便的添加或更换底层APM的实现。我们可以使用它的数据收集中间件：
 
 > 生成、收集数据（Metrics,Logs and traces）
 
 > 将数据推送到Jaeger(或Zipkin、SkyWalking等后端)
 
-> 支持.Net、C++、Go、Java、js、Python等**11种语言**
+> 支持.Net、C++、Go、Java、js、Python等**11种语言（平台）**
 
-> 可以采集.Net项目AspNetCore、Http、EFCore、HttpClient、Grpc、GrpcClient等诊断数据
+
+![OpenTelemetry-logo](./images/Reference_Architecture.svg)
+
+可以采集.Net项目的AspNetCore、Http、EFCore、HttpClient、Grpc等诊断数据
+
 ![OpenTelemetry](./images/opentelemetry.instrumentation.png)
-```csharp
+
+官方代码段
+```csharp 
 // Define some important constants and the activity source
 var serviceName = "MyCompany.MyProduct.MyService";
 var serviceVersion = "1.0.0";
@@ -65,21 +73,21 @@ app.Run();
 ```
 
 ## Jaeger
-[Jaeger](https://www.jaegertracing.io/)是开源的分布式追踪系统，opentelemetry可以将收集到的数据导入到这个里面进行存储和查询。
+[Jaeger](https://www.jaegertracing.io/)是开源的分布式追踪系统，OpenTelemetry可以将收集到的数据导入到这个里面进行存储和查询。
 
 ## Seq
-**日志**是系统尤其重要的一部分，项目使用[seq](https://datalust.co/seq)作为日志平台，它对.net友好，支持sql查询以及图标展示，就不多介绍了。
+项目使用[seq](https://datalust.co/seq)作为日志平台，轻量且.Net友好，支持sql查询以及图表展示，你也可以使用**Nlog+Elasticsearch+Kibana**。
 
 ## 项目目录
 
-    ```shell script
-    .
-    ├──Device //模拟设备
-    ├──IoTGatewayService //模拟网关
-    ├──LogService //日志消费服务
-    ├──WebApi //webapi
-    └──WebApp //webapp
-    ```
+```shell script
+.
+├──WebApp //webapp
+├──WebApi //webapi
+├──IoTGatewayService //模拟网关
+├──Device //模拟设备
+└──LogService //日志消费服务
+```
 
 > 项目介绍
 
@@ -105,7 +113,26 @@ app.Run();
 5. 访问[Seq](),查看日志 
 ![seq](./images/seq.png)
 
+## 采样率
+
+> 项目中后期可使用过滤器或降低采样率来减小数据收集对系统性能的影响。
+
 ## 源码
 在这里[ExploringIoTDistributedTracingNet6](https://github.com/iioter/ExploringIoTDistributedTracingNet6)
 
-# 看到这里关注一下吧?
+## 相关链接
+[1] OpenTelemetry:*https://opentelemetry.io/docs/instrumentation/net/*
+
+[2] Jaeger:*https://www.jaegertracing.io/*
+
+[3] Seq:*https://datalust.co/seq*
+
+[4] 源码:*https://github.com/iioter/ExploringIoTDistributedTracingNet6*
+
+[5] IoTGateway:*https://github.com/iioter/iotgateway*
+
+[6] opentelemetry文章:*https://mp.weixin.qq.com/s?__biz=MzAwNTMxMzg1MA==&mid=2654082294&idx=7&sn=472afb8235cd1dee322641b8add3e77c&chksm=80d830a3b7afb9b5dbba5cabe072a310820c75acf2097ad138c07b0792eab91ffbf340b43741&token=348599805&lang=zh_CN#rd*
+
+## 求关注
+
+![公众号](./images/qrcode.jpg)
