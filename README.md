@@ -1,10 +1,21 @@
 # ExploringIoTDistributedTracingNet6
 > 探索链路追踪在.NET6工业物联网项目的应用
 > 
-> 如果觉得有用，请留言**学到了.**
-> 
-> 已经会了的老哥，请留言**就这?**
-> 
+> 框架列表
+
+|                           Libary/Framework                        |   Versions  |   
+| :---------------------------------------------------------------: | :---------: | 
+| .NET                                                              |      6.0    |   
+| OpenTelemetry                                                     | 1.3.0-beta.1|  
+| OpenTelemetry.Exporter.Jaeger                                     | 1.3.0-beta.1|    
+| OpenTelemetry.Extensions.Hosting                                  | 1.0.0-rc9.3 |       
+| OpenTelemetry.Contrib.Instrumentation.EntityFrameworkCore         | 1.0.0-beta2 |       
+| OpenTelemetry.Exporter.Console                                    | 1.0.0-beta2 |       
+| OpenTelemetry.Instrumentation.AspNetCore                          | 1.0.0-rc9.3 |       
+| OpenTelemetry.Instrumentation.GrpcNetClient                       | 1.0.0-rc9.3 |       
+| OpenTelemetry.Instrumentation.Http                                | 1.0.0-rc9.3 |       
+| OpenTelemetry.Instrumentation.AspNetCore                          | 1.0.0-rc9.3 |       
+
 ![Jaeger](./images/jaeger.png)
 ## 可能遇到的问题
 > 工业物联网项目自上而下一般分为ERP、Mes、SCADA、WCS、边缘网关、设备等
